@@ -2,6 +2,7 @@
 
 class Router {
   private $get;
+  private $errors;
 
   public function __construct() {
     $this->get = [];
@@ -11,10 +12,19 @@ class Router {
     $this->get[$path] = $action;
   }
 
+  public function _404($action) {
+    $this->errors['404'] = $action;
+  }
+
   public function dispatch() {
     $path = explode('?', $_SERVER['REQUEST_URI'])[0];
     $method = strtolower($_SERVER['REQUEST_METHOD']);
-    $action = explode('::', $this->$method[$path]);
+
+    if (isset($this->$method) && isset($this->$method[$path])) {
+      $action = explode('::', $this->$method[$path]);
+    } else {
+      $action = explode('::', $this->errors['404']);
+    }
     $controller = $action[0];
     $handler = $action[1];
 
