@@ -2,14 +2,20 @@
 
 class Router {
   private $get;
+  private $post;
   private $errors;
 
   public function __construct() {
     $this->get = [];
+    $this->post = [];
   }
 
   public function get($path, $action) {
     $this->get[$path] = $action;
+  }
+
+  public function post($path, $action) {
+    $this->post[$path] = $action;
   }
 
   public function _404($action) {

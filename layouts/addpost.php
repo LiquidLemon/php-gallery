@@ -5,7 +5,7 @@
   <title></title>
 </head>
 <body>
-  <form action="">
+  <form action="/post" method="POST">
     <input type="text" name="title" placeholder="Title">
     <textarea name="contents" placeholder="Contents" cols="30" rows="10"></textarea>
   </form>
