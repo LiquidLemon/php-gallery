@@ -1,4 +1,5 @@
 <?php
+require_once '../models/Post.php';
 require_once '../views/PostAddView.php';
 require_once '../views/RedirectView.php';
 
@@ -10,6 +11,9 @@ class PostController {
   public function add() {
     $title = $_POST['title'];
     $contents = $_POST['contents'];
+
+    $post = new Post($title, $contents);
+    $post->save();
 
     return new RedirectView('/post/new', 303);
   }
