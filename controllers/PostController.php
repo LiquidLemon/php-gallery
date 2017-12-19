@@ -1,6 +1,7 @@
 <?php
 require_once '../models/Post.php';
 require_once '../views/PostAddView.php';
+require_once '../views/PostListView.php';
 require_once '../views/RedirectView.php';
 
 class PostController {
@@ -16,5 +17,11 @@ class PostController {
     $post->save();
 
     return new RedirectView('/post/new', 303);
+  }
+
+  public function index() {
+    $posts = Post::getAll();
+
+    return new PostListView($posts);
   }
 }
