@@ -25,6 +25,14 @@ abstract class Model {
     }
   }
 
+  static public function get($query = []) {
+    $object = static::getCollection()->findOne($query);
+    if ($object) {
+      return static::deserialize($object);
+    } else {
+      return null;
+    }
+  }
   static public function getAll($query = []) {
     $cursor = static::getCollection()->find($query);
 

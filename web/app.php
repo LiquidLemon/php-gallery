@@ -11,6 +11,10 @@ $router = new Router();
 $router->get('/img/new', 'ImgController::new');
 $router->post('/img', 'ImgController::add');
 $router->get('/imgs', 'ImgController::index');
+
+$router->get('/signup', 'UserController::signup');
+$router->post('/user', 'UserController::add');
+
 $router->_404('ErrorController::_404');
 
 $view = $router->dispatch();
