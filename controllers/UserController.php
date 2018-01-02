@@ -5,7 +5,11 @@ require_once '../views/RedirectView.php';
 
 class UserController {
   public function signup() {
-    return new LayoutView('signupform');
+    if (currentUser()) {
+      return new RedirectView('/', 303);
+    } else {
+      return new LayoutView('signupform');
+    }
   }
 
   public function add() {
@@ -52,7 +56,11 @@ class UserController {
   }
 
   public function login() {
-    return new LayoutView('loginform');
+    if (currentUser()) {
+      return new RedirectView('/', 303);
+    } else {
+      return new LayoutView('loginform');
+    }
   }
 
   public function authenticate() {
