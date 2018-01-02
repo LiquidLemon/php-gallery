@@ -1,7 +1,7 @@
 <?php
 require_once '../View.php';
 
-class RedirectView {
+class RedirectView extends View {
   private $path;
 
   public function __construct($path, $code) {
