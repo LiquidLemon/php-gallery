@@ -14,7 +14,7 @@
   </tr>
   <tr>
     <td><label for="img">Image: </label></td>
-    <td><input type="file" name="watermark"></td>
+    <td><input type="file" name="img"></td>
   </tr>
   <tr>
     <td colspan="2"><input type="submit" value="Add image"></td>

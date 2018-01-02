@@ -24,8 +24,26 @@ class ImgController {
 
     $watermark = post('watermark');
     if ($watermark == '') {
-      $watermark = false;
+      $valid = false;
       Flash::error("Watermark can't be empty");
+    }
+
+    if (isset($_FILES['img'])) {
+      $filePath = $_FILES['img']['tmp_name'];
+      $type = mime_content_type($filePath);
+      if ($type !== 'image/jpeg' && $type !== 'image/png') {
+        $valid = false;
+        Flash::error("\"{$type}\" is not an acceptable file type");
+      }
+      $fileSize = $_FILES['img']['size'];
+
+      if ($fileSize > 1024 * 1024) {
+        $valid = false;
+        Flash::error("The image is too big (max 1 MB)");
+      }
+    } else {
+      $valid = false;
+      Flash::error("File can't be empty");
     }
 
     return new RedirectView('/img/new', 303);
