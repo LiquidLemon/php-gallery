@@ -1,4 +1,5 @@
 <?php
+require_once 'models/User.php';
 
 // gets POST value or returns an empty string instead
 function post($name) {

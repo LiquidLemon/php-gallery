@@ -10,12 +10,17 @@ class ImgController {
   }
 
   public function add() {
+    $user = currentUser();
     $valid = true;
 
-    $author = post('author');
-    if ($author == '') {
-      $valid = false;
-      Flash::error("Author can't be empty");
+    if ($user) {
+      $author = $user->name;
+    } else {
+      $author = post('author');
+      if ($author == '') {
+        $valid = false;
+        Flash::error("Author can't be empty");
+      }
     }
 
     $title = post('title');
@@ -28,6 +33,17 @@ class ImgController {
     if ($watermark == '') {
       $valid = false;
       Flash::error("Watermark can't be empty");
+    }
+
+    $access = post('access');
+    if ($access == '') {
+      if ($user) {
+        $valid = false;
+      } else {
+        $public = true;
+      }
+    } else {
+      $public = $access == 'public';
     }
 
     if (isset($_FILES['img']) && $_FILES['img']['size'] > 0) {
@@ -50,7 +66,7 @@ class ImgController {
     }
 
     if ($valid) {
-      $img = new Img($author, $title, $format);
+      $img = new Img($author, $title, $public, $format);
       $img->save();
       $id = $img->id();
       $name = "{$id}.{$format}";
@@ -72,7 +88,11 @@ class ImgController {
   }
 
   public function index() {
+    $user = currentUser();
     $imgs = Img::getAll();
+    $imgs = array_filter($imgs, function ($img) use ($user) {
+      return $img->public || ($user && $img->author == $user->name);
+    });
     return new LayoutView('imglist', ['imgs' => $imgs]);
   }
 }
