@@ -12,6 +12,10 @@ class User extends Model {
     $this->passwordHash = $passwordHash;
   }
 
+  public function validPassword($password) {
+    return password_verify($password, $this->passwordHash);
+  }
+
   protected function serialize() {
     $object = [
       'name' => $this->name,

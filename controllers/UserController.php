@@ -50,4 +50,22 @@ class UserController {
       return new RedirectView('/signup', 303);
     }
   }
+
+  public function login() {
+    return new LayoutView('loginform');
+  }
+
+  public function authenticate() {
+    $name = post('name');
+    $password = post('password');
+    $user = User::get(['name' => $name]);
+    if (!$user || !$user->validPassword($password)) {
+      Flash::error("Wrong credentials");
+      return new RedirectView('/login', 303);
+    } else {
+      $_SESSION['user'] = $name;
+      Flash::info("Welcome! You're now logged in.");
+      return new RedirectView('/', 303);
+    }
+  }
 }

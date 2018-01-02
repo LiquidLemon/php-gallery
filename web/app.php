@@ -15,6 +15,9 @@ $router->get('/imgs', 'ImgController::index');
 $router->get('/signup', 'UserController::signup');
 $router->post('/user', 'UserController::add');
 
+$router->get('/login', 'UserController::login');
+$router->post('/login', 'UserController::authenticate');
+
 $router->_404('ErrorController::_404');
 
 $view = $router->dispatch();
