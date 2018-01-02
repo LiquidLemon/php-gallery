@@ -70,4 +70,9 @@ class ImgController {
 
     return new RedirectView('/img/new', 303);
   }
+
+  public function index() {
+    $imgs = Img::getAll();
+    return new LayoutView('imglist', ['imgs' => $imgs]);
+  }
 }

@@ -25,6 +25,17 @@ abstract class Model {
     }
   }
 
+  static public function getAll($query = []) {
+    $cursor = static::getCollection()->find($query);
+
+    $objects = [];
+    foreach ($cursor as $object) {
+      array_push($objects, static::deserialize($object));
+    }
+
+    return $objects;
+  }
+
   public function id() {
     return $this->id;
   }

@@ -2,9 +2,9 @@
 require_once '../Model.php';
 
 class Img extends Model {
-  private $author;
-  private $title;
-  private $format;
+  public $author;
+  public $title;
+  public $format;
 
   public function __construct($author, $title, $format) {
     $this->author = $author;
@@ -27,7 +27,7 @@ class Img extends Model {
       $object['title'],
       $object['format']
     );
-    $instance->id = (string)$object['id'];
+    $instance->id = (string)$object['_id'];
     return $instance;
   }
 }
