@@ -2,3 +2,7 @@ vendor
 node_modules
 web/images/*.jpeg
 web/images/*.png
+web/thumb/*.jpeg
+web/thumb/*.png
+web/preview/*.jpeg
+web/preview/*.png

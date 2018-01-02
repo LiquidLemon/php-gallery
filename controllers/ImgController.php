@@ -2,6 +2,7 @@
 require_once '../models/Img.php';
 require_once '../views/LayoutView.php';
 require_once '../views/RedirectView.php';
+require_once '../image_helpers.php';
 
 class ImgController {
   public function new() {
@@ -51,11 +52,18 @@ class ImgController {
     if ($valid) {
       $img = new Img($author, $title, $format);
       $img->save();
-      $name = $img->id() . ".{$format}";
+      $id = $img->id();
+      $name = "{$id}.{$format}";
       $path = getcwd() . "/images/{$name}";
       if (!rename($filePath, $path)) {
         Flash::error("Couldn't save file");
       }
+
+      $thumbnailPath = getcwd() . "/thumb/{$id}.png";
+      generateThumbnail($path, $thumbnailPath, $format);
+
+      $watermarkPath = getcwd() . "/preview/{$id}.png";
+      generateWatermark($path, $watermarkPath, $format, $watermark);
 
       Flash::info('Image added');
     }
