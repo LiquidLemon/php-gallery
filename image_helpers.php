@@ -9,5 +9,12 @@ function generateThumbnail($file, $path, $format) {
 }
 
 function generateWatermark($file, $path, $format, $text) {
-
+  $create = "imagecreatefrom{$format}";
+  $img = $create($file);
+  $color = imagecolorallocate($img, 0x0, 0x0, 0x0); // black
+  $x = 50;
+  $y = imagesy($img) - 50;
+  imagettftext($img, 20, 45, $x, $y, $color, '../VT323-Regular.ttf', $text);
+  imagepng($img, $path);
+  imagedestroy($img);
 }
