@@ -1,0 +1,36 @@
+<?php
+require_once 'DB.php';
+
+abstract class Model {
+  protected $id;
+
+  protected function serialize() {
+    $object = [
+      '_id' => new MongoDB\BSON\ObjectId($this->id)
+    ];
+    return $object;
+  }
+
+  abstract static protected function deserialize($object);
+
+  public function save() {
+    if (isset($this->id)) {
+      static::getCollection()->updateOne(
+        ['_id' => new MongoDB\BSON\ObjectId($this->id)],
+        ['$set' => $this->serialize()]
+      );
+    } else {
+      $result = static::getCollection()->insertOne($this->serialize());
+      $this->id = $result->getInsertedId();
+    }
+  }
+
+  public function id() {
+    return $this->id;
+  }
+
+  static private function getCollection() {
+    $collectionName = strtolower(get_called_class()) . 's';
+    return DB::get()->$collectionName;
+  }
+}

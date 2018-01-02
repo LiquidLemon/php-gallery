@@ -1,4 +1,5 @@
 <?php
+require_once '../models/Img.php';
 require_once '../views/LayoutView.php';
 require_once '../views/RedirectView.php';
 
@@ -28,15 +29,16 @@ class ImgController {
       Flash::error("Watermark can't be empty");
     }
 
-    if (isset($_FILES['img'])) {
+    if (isset($_FILES['img']) && $_FILES['img']['size'] > 0) {
       $filePath = $_FILES['img']['tmp_name'];
       $type = mime_content_type($filePath);
-      if ($type !== 'image/jpeg' && $type !== 'image/png') {
+      $format = explode('/', $type)[1];
+      if ($format !== 'jpeg' && $format !== 'png') {
         $valid = false;
         Flash::error("\"{$type}\" is not an acceptable file type");
       }
-      $fileSize = $_FILES['img']['size'];
 
+      $fileSize = $_FILES['img']['size'];
       if ($fileSize > 1024 * 1024) {
         $valid = false;
         Flash::error("The image is too big (max 1 MB)");
@@ -44,6 +46,18 @@ class ImgController {
     } else {
       $valid = false;
       Flash::error("File can't be empty");
+    }
+
+    if ($valid) {
+      $img = new Img($author, $title, $format);
+      $img->save();
+      $name = $img->id() . ".{$format}";
+      $path = getcwd() . "/images/{$name}";
+      if (!rename($filePath, $path)) {
+        Flash::error("Couldn't save file");
+      }
+
+      Flash::info('Image added');
     }
 
     return new RedirectView('/img/new', 303);
