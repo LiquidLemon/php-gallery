@@ -1,0 +1,214 @@
+$fonts: 'VT323', monospace
+
+// black
+$color1: #161616
+$color2: #262626
+$color3: #363636
+// green
+$color4: #2b6823
+$color5: #34812b
+$color6: #3d9932
+$color7: #47b239
+$color8: #54c547
+
+$break-small: 320px
+$break-large: 1200px
+
+@mixin respond-to($size)
+  @if $size == small
+    @media screen and (max-width: $break-small)
+      @content
+  @if $size == medium
+    @media screen and (min-width: $break-small + 1) and (max-width: $break-large - 1)
+      @content
+  @if $size == large
+    @media screen and (min-width: $break-large)
+      @content
+
+@import url('https://fonts.googleapis.com/css?family=VT323')
+
+body, html
+  margin: 0
+  width: 100%
+  background-color: $color1
+
+#wrapper
+  max-width: 900px
+  margin: 25px auto
+  background-color: $color2
+
+  font-family: $fonts
+  font-size: 20pt
+  color: $color6
+  padding: 0 20px
+
+h1
+  text-align: center
+  font-weight: normal
+  font-size: 60pt
+  @include respond-to(small)
+    font-size: 28pt
+
+  @include respond-to(medium)
+    font-size: 34pt
+
+  &::before
+    content: '#'
+  &::after
+    content: '_'
+    animation: 1.25s blink infinite
+
+@keyframes blink
+  0%
+    opacity: 0
+
+  50%
+    opacity: 0
+
+  50.00001%
+    opacity: 1
+
+  100%
+    opacity: 1
+
+nav
+  ul
+    list-style-type: none
+    padding: 0
+    @include respond-to(large)
+      a
+        .command
+          display: none
+
+        &:hover
+          .command
+            display: inline
+            &::before
+              content: 'root:~# '
+    a
+      .command
+        display: none
+
+a
+  text-decoration: none
+  color: $color4
+
+  &:hover
+    color: $color7
+
+.link-active
+  &::before
+    content: '['
+  &::after
+    content: ']'
+
+h2
+  font-weight: normal
+
+  &::before
+    content: '$ '
+
+h3
+  font-weight: normal
+
+dl
+  margin-bottom: 10px
+  dt
+    &::after
+      content: ':'
+
+.dictionary-definition
+  dd
+    &::after
+      content: ','
+    &:last-child
+      &::after
+        content: '.'
+
+figcaption
+  font-size: smaller
+  text-align: center
+  color: $color5
+
+td, th
+  padding: 0 15px
+
+.sublinks
+  li
+    display: inline
+    background-color: $color3
+
+label
+  display: block
+
+form.survey
+  table
+    border: 3px solid $color5
+    border-collapse: collapse
+    overflow-x: auto
+
+  td
+    border: 3px solid $color5
+    padding: 10px
+
+.gallery
+  display: flex
+
+  flex-flow: row wrap
+  justify-content: space-around
+
+  .element
+    display: flex
+    align-items: flex-end
+    margin: 5px
+
+    img
+      max-width: 400px
+      @include respond-to(small)
+        max-width: 280px
+
+
+    &:last-child
+      align-self: flex-start
+
+.events
+  border: 1px solid $color6
+  border-collapse: collapse
+  overflow-x: auto
+
+  td
+    border: 1px solid $color6
+
+th
+  font-weight: normal
+
+.icon
+  height: 1em
+
+.invisible
+  display: none
+
+footer
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  margin: 10px
+
+  p
+    margin: 5px
+
+// Markdown
+i
+  &::before
+    content: '_'
+  &::after
+    content: '_'
+
+strong
+  font-weight: normal
+  color: $color7
+  &::before
+    content: '*'
+  &::after
+    content: '*'

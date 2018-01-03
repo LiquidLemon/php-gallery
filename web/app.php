@@ -22,6 +22,11 @@ $router->get('/imgs/favorite', 'FavoriteController::index');
 $router->post('/imgs/favorite', 'FavoriteController::set');
 $router->post('/imgs/unfavorite', 'FavoriteController::remove');
 
+$router->get('/', 'StaticController::index');
+$router->get('/ctf', 'StaticController::ctf');
+$router->get('/events', 'StaticController::events');
+$router->get('/newsletter', 'StaticController::newsletter');
+
 $router->_404('ErrorController::_404');
 
 $view = $router->dispatch();

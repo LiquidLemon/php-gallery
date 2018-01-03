@@ -6,3 +6,7 @@ web/thumb/*.jpeg
 web/thumb/*.png
 web/preview/*.jpeg
 web/preview/*.png
+web/assets/bundle.js
+web/assets/style.css
+web/assets/style.css.map
+.sass-cache
