@@ -13,10 +13,10 @@
   <header>
     <?php include 'header.php' ?>
   </header>
-  <aside class="flash"><?php include 'flash.php' ?></aside>
   <nav>
     <?php include 'nav.php' ?>
   </nav>
+  <aside class="flash"><?php include 'flash.php' ?></aside>
   <main>
     <?php include $template; ?>
   </main>
