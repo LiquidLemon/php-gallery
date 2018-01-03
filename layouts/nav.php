@@ -26,7 +26,10 @@ $links = [
     new NavLink('https://ctftime.org', 'ctftime'),
     new NavLink('https://github.com/ctfs/write-ups-2017', 'writeups_2017')
   ]),
-  new NavLink('/imgs', 'images'),
+  new NavLink('/imgs', 'images', '', [
+    new NavLink('/img/new', 'new'),
+    new NavLink('/imgs/favorite', 'favorite')
+  ]),
   new NavLink('/newsletter', 'newsletter')
 ];
 
@@ -43,7 +46,7 @@ foreach ($links as $link) {
   echo "<a href=\"{$link->path}\" {$active}>";
   echo '<span class="command">' . $link->command . '</span>';
   echo "{$link->name}</a>";
-  if (count($link->sublinks) > 0) {
+  if (count($link->sublinks) > 0 && $link->isPath($currentPath)) {
     echo '<ul class="sublinks">';
     foreach ($link->sublinks as $sub) {
       echo '<li>';
