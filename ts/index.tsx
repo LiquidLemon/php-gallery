@@ -1,6 +1,9 @@
 import * as $ from 'jquery'
 import 'jqueryui'
 import * as angular from 'angular'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
+import { SearchApp } from './search'
 
 $(() => {
   // jQuery UI
@@ -14,7 +17,7 @@ $(() => {
   if (forms.length > 0 && forms[0].id === 'newsletter') {
     const newsletter = forms[0]
     $(newsletter).submit((e) => {
-      if ((<HTMLInputElement>$('#name')[0]).value === '') {
+      if (($('#name')[0] as HTMLInputElement).value === '') {
         e.preventDefault()
         $('#newsletter-warning').dialog('open')
       }
@@ -89,6 +92,11 @@ $(() => {
       $('#events').removeClass('invisible')
     })
   })
+
+  const searchApp = document.getElementById('search-app')
+  if (SearchApp) {
+    ReactDOM.render(<SearchApp />, searchApp);
+  }
 })
 
 function formatTime(time: number): string {

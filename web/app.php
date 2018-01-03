@@ -27,6 +27,9 @@ $router->get('/ctf', 'StaticController::ctf');
 $router->get('/events', 'StaticController::events');
 $router->get('/newsletter', 'StaticController::newsletter');
 
+$router->get('/img', 'ImgController::get');
+$router->get('/imgs/search', 'ImgController::search');
+
 $router->_404('ErrorController::_404');
 
 $view = $router->dispatch();

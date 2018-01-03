@@ -28,7 +28,8 @@ $links = [
   ]),
   new NavLink('/imgs', 'images', '', [
     new NavLink('/img/new', 'new'),
-    new NavLink('/imgs/favorite', 'favorite')
+    new NavLink('/imgs/favorite', 'favorite'),
+    new NavLink('/imgs/search', 'search')
   ]),
   new NavLink('/newsletter', 'newsletter')
 ];

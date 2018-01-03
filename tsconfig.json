@@ -3,7 +3,8 @@
     "types": ["jquery"],
     "lib": ["es2015", "dom"],
     "outDir": "web/assets",
-    "allowJs": true
+    "allowJs": true,
+    "jsx": "react"
   },
   "include": [
     "ts/*.ts"

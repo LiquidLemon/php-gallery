@@ -2,6 +2,7 @@
 require_once '../models/Img.php';
 require_once '../views/LayoutView.php';
 require_once '../views/RedirectView.php';
+require_once '../views/JsonView.php';
 require_once '../image_helpers.php';
 
 class ImgController {
@@ -94,5 +95,24 @@ class ImgController {
       return $img->public || ($user && $img->author == $user->name);
     });
     return new LayoutView('imglist', ['imgs' => $imgs]);
+  }
+
+  public function search() {
+    return new LayoutView('search');
+  }
+
+  public function get() {
+    $title = $_GET['title'];
+    $imgs = Img::getAll([
+      'title' => new MongoDB\BSON\Regex($title, 'i')
+    ]);
+    $user = currentUser();
+    $imgs = array_values(array_filter($imgs, function ($img) use ($user) {
+      return $img->public || ($user && $user->name == $img->author);
+    }));
+    $ids = array_map(function ($img) {
+      return $img->id();
+    }, $imgs);
+    return new JsonView($ids);
   }
 }
