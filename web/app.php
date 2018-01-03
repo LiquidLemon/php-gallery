@@ -18,6 +18,10 @@ $router->post('/user', 'UserController::add');
 $router->get('/login', 'UserController::login');
 $router->post('/login', 'UserController::authenticate');
 
+$router->get('/imgs/favorite', 'FavoriteController::index');
+$router->post('/imgs/favorite', 'FavoriteController::set');
+$router->post('/imgs/unfavorite', 'FavoriteController::remove');
+
 $router->_404('ErrorController::_404');
 
 $view = $router->dispatch();

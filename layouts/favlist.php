@@ -1,9 +1,9 @@
 <?php
 
 $user = currentUser();
-$favorites = isset($_SESSION['favorites']) ? $_SESSION['favorites'] : [];
+$favorites = isset($_SESSION['favorite']) ? $_SESSION['favorite'] : [];
 
-echo '<form action="/imgs/favorite" method="POST">';
+echo '<form action="/imgs/unfavorite" method="POST">';
 foreach ($imgs as $img) {
   $private = $img->public ? '' : '[P] ';
   $thumbPath = "/thumb/{$img->id()}.png";
@@ -13,9 +13,8 @@ foreach ($imgs as $img) {
   echo "<div class=\"image\">";
   echo "<a href=\"{$imgPath}\"><img src=\"{$thumbPath}\"></a>";
   echo "<p class=\"caption\">{$private}{$img->title}</p>";
-  $checked = in_array($img->id(), $favorites) ? 'checked' : '';
-  echo "<input type=\"checkbox\" name=\"selected[]\"value=\"{$img->id()}\" {$checked}>";
+  echo "<input type=\"checkbox\" name=\"selected[]\"value=\"{$img->id()}\">";
   echo "</div>";
 }
-echo '<input type="submit" value="Favorite">';
+echo '<input type="submit" value="Remove">';
 echo "</form>";
