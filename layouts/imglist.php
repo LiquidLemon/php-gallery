@@ -8,7 +8,7 @@ foreach ($imgs as $img) {
   $private = $img->public ? '' : '[P] ';
   $thumbPath = "/thumb/{$img->id()}.png";
   $imgPath = ($user && $user->name == $img->author)
-    ? "/images/{$img->id()}.png"
+    ? "/images/{$img->id()}.{$img->format}"
     : "/preview/{$img->id()}.png";
   echo "<div class=\"image\">";
   echo "<a href=\"{$imgPath}\"><img src=\"{$thumbPath}\"></a>";
