@@ -21,7 +21,7 @@ The only interesting parts of this project are inside the homebrew framework:
 ## Trivia
 
 This is the second rendition of this project.
-I accidentally deleted it in its entirety (along with the repository) half a day before the due date and rewrote it almost from scratch 7 hours.
+I accidentally deleted it in its entirety (along with the repository) half a day before the due date and rewrote it almost from scratch in 7 hours.
 Remember to push your repositories often kids.
 
 The second version is better.
